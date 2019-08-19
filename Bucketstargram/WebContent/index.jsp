@@ -69,7 +69,7 @@
             <div class="profile__column">
                 <div class="profile__title">
                     <h1 class="profile__username">${userid }</h1>
-                    <a href="edit-profile.html">Edit profile</a>
+                    <a href="jsp_test/AjaxTest.jsp">Edit profile</a>
                     <i class="fa fa-cog fa-lg"></i>
                 </div>
                 <ul class="profile__stats">

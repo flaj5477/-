@@ -27,9 +27,7 @@ public class MyBucket implements Command {
 		HttpSession session = request.getSession(true);
 		String userid = (String)session.getAttribute("userid");
 		ArrayList<BucketDto> bucketList = bucketDao.select(userid);
-		HashMap<String, ReplyDto> replyList = replyDao.select(userid);
 		request.setAttribute("bucketList", bucketList);
-		request.setAttribute("replyList", replyList);
 		String viewPage = "jsp/mybucket/MyBucket.jsp";
 		HttpRes.forward(request, response, viewPage);
 	}

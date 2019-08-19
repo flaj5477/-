@@ -14,10 +14,10 @@
     <servlet-name>Controller</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-<!-- 	<jsp-config>
-		<jsp-property-group>
-			<url-pattern>*.jsp</url-pattern>
-			<include-prelude>/jsp/trace.jspf</include-prelude>
-		</jsp-property-group>
-	</jsp-config> --> 
+    <jsp-config>                                                                            
+     <jsp-property-group> 
+           <url-pattern>*.jsp</url-pattern> 
+           <include-prelude>/jsp/trace.jspf</include-prelude>
+     </jsp-property-group> 
+  </jsp-config> 
 </web-app>

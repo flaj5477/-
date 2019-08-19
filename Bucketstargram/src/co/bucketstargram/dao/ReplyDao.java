@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import co.bucketstargram.dto.ReplyDto;
@@ -48,23 +49,25 @@ public class ReplyDao {
 	}
 	
 	
-	public HashMap<String, ReplyDto> select(String userid) {
+	public ArrayList<ReplyDto> select(String imageId, String userId) {
 		// TODO Auto-generated method stub
-		HashMap<String, ReplyDto> ReplyList = null;
+		ArrayList<ReplyDto> replyList = new ArrayList<ReplyDto>();
 		ReplyDto reply = null;
-		String sql = "SELECT * FROM bucket_reply_tb WHERE re_member_id = '" + userid + "'";
+		//String sql = "SELECT re_member_id, re_reply_contents FROM bucket_reply_tb WHERE re_bucket_id = '" + imageId + "'";
+		String sql = "SELECT re_member_id, re_reply_contents FROM bucket_reply_tb br, bucket_info_tb bi WHERE br.re_bucket_id=bi.bucket_id and br.re_bucket_id = ? and bi.bucket_member_id = ?"; 
 		
 		try {
-			ReplyList = new HashMap<String, ReplyDto>();
 			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, imageId);
+			psmt.setString(2, userId);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				reply = new ReplyDto();
-				reply.setReBucketId(rs.getString("re_bucket_id"));
+				
 				reply.setReMemberId(rs.getString("re_member_id"));
 				reply.setReReplyContents(rs.getString("re_reply_contents"));
-				  
-				ReplyList.put(reply.getReBucketId(), reply);
+				
+				replyList.add(reply);
 			}
 			
 		} catch (SQLException e) {
@@ -73,6 +76,6 @@ public class ReplyDao {
 			close();
 		}
 		
-		return ReplyList;
+		return replyList;
 	}
 }

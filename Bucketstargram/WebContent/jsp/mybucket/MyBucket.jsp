@@ -1,4 +1,4 @@
- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%--  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -185,7 +185,7 @@ li{
     <H3>TEST</H3>
 	<div>
  		<c:forEach items="${bucketList}" var="bucket">
-			<img id="originalImgId" src="${bucket.bucketImagePath }" style="width: 100%; max-width: 300px" onclick="startModal(this)"/>
+			<img id="originalImgId" src="${bucket.bucketImagePath }" alt = ${bucketId } style="width: 100%; max-width: 300px" onclick="startModal(this)"/>
 		</c:forEach> 
 	</div>
 	<div id="modal" class="modal" onclick="this.style.display='none'">
@@ -207,14 +207,15 @@ li{
 	</div>
 	<script>
 		function startModal(element) {
+			
 			document.getElementById("modalImg").src = element.src;
 			document.getElementById("modal").style.display = "block";
 		}
 	</script>
 </body>
 </html>
-
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -222,6 +223,7 @@ li{
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
 body {
 	font-family: Arial, Helvetica, sans-serif;
@@ -374,9 +376,9 @@ li{
     overflow-y:scroll;
     background-color: white;
 } 
-.view{
+.reple-view{
     width:100%;
-    height:65%;
+    height:70%;
 /*     width:200px;
     height:260px;
     position: absolute; */
@@ -392,7 +394,113 @@ li{
 	display:inline;
 	margin:5px;
 }
+.add-view{
+	width:100%;
+    height:20%;
+    border-bottom:1px solid #f1f1f1;
+}
+.add-view-child i{
+	font-size: x-large;
+	margin: 5px;
+}
+#total-like-view{
+	display:block;
+}
+#reply-post-up textarea{
+	width:100%;
+	height:10%;
+    padding: 0;
+    border: 0;
+    resize: none;
+}
 </style>
+<script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+<script src="js/bootstrap.js"></script>
+<script>
+	var imageId = "";
+	var request = new XMLHttpRequest();
+	function startModal(element) {
+		imageId = element.id;
+		console.log(imageId);
+		document.getElementById("modalImg").src = element.src;
+		
+		request.open("Post", "GetReply.do?imageId="+encodeURIComponent(imageId, true));
+		request.onreadystatechange = searchProcess;//성공적으로 요청하는 동작이 끝났으면 searchProcess 실행
+		request.send(null);
+	}
+	function searchProcess() {
+		var tag = "";
+		
+		if (request.readyState = 4 && request.status == 200) {
+			//4: request finished and response is ready
+			//Returns the status-number of a request 200: "OK"
+			/*성공적으로 통신이 되었다면*/
+			console.log("requset finished and response is ready");
+			//eval()은 문자열을 코드로 인식하게 하는 함수입니다.
+			//responseText	: get the response data as a string
+			//var object = JSON.parse(request.responseText); 
+			console.log(request.responseText);
+			//var object = eval('(' + request.responseText + ')'); 
+			
+			//컨트롤러의  result.append("{\result\":[");의 result를 의미
+			var result = JSON.parse(request.responseText);
+			console.log("result = " + result);
+			for (var key in result){
+				console.log("key = " + key);
+				console.log("result[key] = " + result[key]);
+				tag += '<div class="repl"><h3 class = "repl-id">' + key  + '</h3><span class = "repl-content">' + result[key]; + '</span></div>';
+			}
+			document.getElementById("ajax-repl").innerHTML += tag;
+			document.getElementById("modal").style.display = "block";
+		}
+	}
+		
+	window.onclick = function(event) {
+		if (event.target == modal) {
+		  modal.style.display = "none";
+		}
+	}
+</script>
+<script>
+	//댓글 엔터혹은 게시 버튼 클릭시 댓글 추가
+	//쉬프트 엔터는 줄바꿈
+	var replyContent;
+	$(function() {
+	    $('textarea').on('keydown', function(event) {
+	        if (event.keyCode == 13)
+	            if (!event.shiftKey){
+	                event.preventDefault();
+	                $('#reply-submit').submit();
+	            }
+	    });
+	    
+	    $('#reply-submit').on('submit', function() {
+	    	buttonClick();
+	    });
+	    
+	    function buttonClick() {
+	        //alert("you pressed submit button!");
+	        //수정 시작
+	        replyContent = $('#reply-textArea').val();
+	        console.log("replyContent = " + replyContent);
+			$(document).ready(function(){
+				$.ajax({
+					type:"POST",
+					url:"AppendReply.do",
+					data:{content:replyContent},
+					dataType:"text",
+					success: function(result){
+						console.log(result);
+					},
+					error: function(xhr, status, error){
+						console.log(error);
+					}
+				})
+			})
+	        //
+	    }
+	});
+</script>
 </head>
 <body>
     <section>
@@ -401,34 +509,59 @@ li{
     <H3>TEST</H3>
 	<div>
  		<c:forEach items="${bucketList}" var="bucket">
-			<img id="originalImgId" src="${bucket.bucketImagePath }" style="width: 100%; max-width: 300px" onclick="startModal(this)"/>
+			<img id="${bucket.bucketId }" src="${bucket.bucketImagePath }" style="width: 100%; max-width: 300px" onclick="startModal(this)"/>
 		</c:forEach> 
 	</div>
-	<div id="modal" class="modal" onclick="this.style.display='none'">
+	<!-- onclick="this.style.display='none'" -->
+	<div id="modal" class="modal">
 		<div id="container">
 			<div id="image-box">
 				<img class="modal-content" id="modalImg">
 			</div>
 			<div id="reply-box">
-				<div class = "view">
-					<div class = "scrollBlind">
+				<div class = "reple-view">
+					<div id="ajax-repl"class = "scrollBlind">
 						<div class="repl">
-							<h3 class = "repl-id">ljm089</h3>
-							<span class = "repl-content">hi</span>
 						</div>
 					</div>
+				</div>
+				<div class = "add-view">
+					<span class = "add-view-child">
+						<a href="#" id="like" class="#"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
+						<a href="#" id="add" class="#"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+						<a href="#" id="delete" class="#"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+						<a href="#" id="update" class="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+					</span>
+					<span id="total-like-view">
+						좋아요 500개
+					</span>
+				</div>
+				<div id="reply-post-up">
+					<form id="reply-submit">
+						<span><textarea id="reply-textArea" rows="3"></textarea></span>
+						<span><button type="submit" onclick="buttonClick();">올리기</button></span>
+					</form>
 				</div>
 			</div> 
 		</div>
 	</div>
-	<script>
-		function startModal(element) {
-			document.getElementById("modalImg").src = element.src;
-			document.getElementById("modal").style.display = "block";
-		}
-	</script>
 </body>
-</html> --%>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <%-- 
 <%@ page language="java" contentType="text/html; charset=UTF-8"

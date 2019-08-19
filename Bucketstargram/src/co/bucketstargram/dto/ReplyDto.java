@@ -4,7 +4,15 @@ public class ReplyDto {
 	private String reMemberId;
 	private String reBucketId;
 	private String reReplyContents;
-	
+	public ReplyDto() {
+		// TODO Auto-generated constructor stub
+	}
+	public ReplyDto(String reMemberId, String reBucketId, String reReplyContents) {
+		super();
+		this.reMemberId = reMemberId;
+		this.reBucketId = reBucketId;
+		this.reReplyContents = reReplyContents;
+	}
 	public String getReMemberId() {
 		return reMemberId;
 	}
