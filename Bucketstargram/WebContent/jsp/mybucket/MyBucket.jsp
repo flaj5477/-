@@ -1,220 +1,3 @@
-<%--  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
-<style>
-body {
-	font-family: Arial, Helvetica, sans-serif;
-}
-
-#originalImgId {
-	border-radius: 5px;
-	cursor: pointer;
-	transition: 0.3s;
-}
-
-#originalImgId:hover {
-	opacity: 0.7;
-}
-
-/* The Modal (background) */
-.modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 1; /* Sit on top */
-	padding-top: 100px; /* Location of the box */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, .5); /* Black w/ opacity */
-}
-
-/* Modal Content (image) */
-.modal-content {
-	margin: 0px;
-	display: block;
-	width: 100%;
-	height: 100%;
-	max-width: 700px;
-	vertical-align: middle;
-}
-
-/* Caption of Modal Image */
-#caption {
-	margin: auto;
-	display: flex;
-	width: 80%;
-	max-width: 700px;
-	text-align: center;
-	color: #ccc;
-	padding: 0;
-	height: 150px;
-}
-
-/* Add Animation */
-.modal-content, #caption {
-	-webkit-animation-name: zoom;
-	-webkit-animation-duration: 0.6s;
-	animation-name: zoom;
-	animation-duration: 0.6s;
-}
-
-@
--webkit-keyframes zoom {
-	from {-webkit-transform: scale(0)
-}
-
-to {
-	-webkit-transform: scale(1)
-}
-
-}
-@
-keyframes zoom {
-	from {transform: scale(0)
-}
-
-to {
-	transform: scale(1)
-}
-
-}
-
-/* The Close Button */
-.close {
-	position: absolute;
-	top: 15px;
-	right: 35px;
-	color: #f1f1f1;
-	font-size: 40px;
-	font-weight: bold;
-	transition: 0.3s;
-}
-
-.close:hover, .close:focus {
-	color: #bbb;
-	text-decoration: none;
-	cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px) {
-	.modal-content {
-		width: 100%;
-	}
-}
-</style>
-<style>
-div#container
-{
-width:900px;
-height: 500px;
-/* border:1px solid red; */
-vertical-align: middle;
-margin: auto;
-display: block;
-}
-#image-box
-{
-width: 65%;
-height: 100%;
-float:left;
-background-color:black;
-/* border:1px solid blue; */
-/* margin: 5px 5px; */
-}
-#reply-box
-{
-width: 35%; 
-height: 100%;
-float:right;
-/* border:1px solid green; */
-margin:0px;
-background-color:white;
-}
-</style>
-<style>
-ul{width:200px;}
-li{
-    height:50px;
-    line-height: 50px;
-    text-align: center;
-    border-bottom: 1px solid blue;
-    background-color: yellow;
-}
-.scrollBlind{
-    width:107%;
-    height:100%;
-/*     width:230px;
-    height:100%; */
-    /* 스크롤 생성 위치 */
-    overflow-y:scroll;
-    background-color: white;
-} 
-.view{
-    width:100%;
-    height:65%;
-/*     width:200px;
-    height:260px;
-    position: absolute; */
-    /* border:1px solid red; */
-    border-bottom:1px solid #f1f1f1;
-    
-    overflow: hidden;
-}
-.repl{
-	margin-top:5px;
-}
-.repl-id{
-	display:inline;
-	margin:5px;
-}
-</style>
-</head>
-<body>
-    <section>
-		<a href = "BucketPostForm.do">등록</a>
-    </section>
-    <H3>TEST</H3>
-	<div>
- 		<c:forEach items="${bucketList}" var="bucket">
-			<img id="originalImgId" src="${bucket.bucketImagePath }" alt = ${bucketId } style="width: 100%; max-width: 300px" onclick="startModal(this)"/>
-		</c:forEach> 
-	</div>
-	<div id="modal" class="modal" onclick="this.style.display='none'">
-		<div id="container">
-			<div id="image-box">
-				<img class="modal-content" id="modalImg">
-			</div>
-			<div id="reply-box">
-				<div class = "view">
-					<div class = "scrollBlind">
-						<div class="repl">
-							<h3 class = "repl-id">ljm089</h3>
-							<span class = "repl-content">hi~~</span>
-						</div>
-					</div>
-				</div>
-			</div> 
-		</div>
-	</div>
-	<script>
-		function startModal(element) {
-			
-			document.getElementById("modalImg").src = element.src;
-			document.getElementById("modal").style.display = "block";
-		}
-	</script>
-</body>
-</html>
- --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -224,6 +7,9 @@ li{
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<%
+	String userid = (String)session.getAttribute("userid");
+%>
 <style>
 body {
 	font-family: Arial, Helvetica, sans-serif;
@@ -418,10 +204,16 @@ li{
 <script src="js/bootstrap.js"></script>
 <script>
 	var imageId = "";
+	//중복 이벤트 발생해서 막기위해 추가함
+	var tagCreate = true;
+	//리플 개수 저장 변수
+	var replyCnt = 0;
 	var request = new XMLHttpRequest();
 	function startModal(element) {
 		imageId = element.id;
-		console.log(imageId);
+		/////////////////////
+		console.log("imageId = " + imageId);
+		/////////////////////
 		document.getElementById("modalImg").src = element.src;
 		
 		request.open("Post", "GetReply.do?imageId="+encodeURIComponent(imageId, true));
@@ -430,76 +222,107 @@ li{
 	}
 	function searchProcess() {
 		var tag = "";
-		
+		var result = "";
+		//4: request finished and response is ready
+		//Returns the status-number of a request 200: "OK"		
 		if (request.readyState = 4 && request.status == 200) {
-			//4: request finished and response is ready
-			//Returns the status-number of a request 200: "OK"
-			/*성공적으로 통신이 되었다면*/
-			console.log("requset finished and response is ready");
-			//eval()은 문자열을 코드로 인식하게 하는 함수입니다.
-			//responseText	: get the response data as a string
-			//var object = JSON.parse(request.responseText); 
-			console.log(request.responseText);
-			//var object = eval('(' + request.responseText + ')'); 
-			
-			//컨트롤러의  result.append("{\result\":[");의 result를 의미
-			var result = JSON.parse(request.responseText);
-			console.log("result = " + result);
-			for (var key in result){
-				console.log("key = " + key);
-				console.log("result[key] = " + result[key]);
-				tag += '<div class="repl"><h3 class = "repl-id">' + key  + '</h3><span class = "repl-content">' + result[key]; + '</span></div>';
-			}
-			document.getElementById("ajax-repl").innerHTML += tag;
-			document.getElementById("modal").style.display = "block";
+			/////////////////////////////////////////////////////////////
+			console.log("searchProcess : request.responseText = " + request.responseText);
+			/////////////////////////////////////////////////////////////
+			result = request.responseText;
+			//해당 게시물에 댓글이 없을 경우 태그 추가없이 모달창만 띄운다.
+			//if(result != ""){
+				console.log("test");
+				if(result != ""){
+					var json = JSON.parse(result);
+					//리플 개수 json 데이터 길이로 구함 - Object.keys(객체명).length
+					replyCnt = Object.keys(json).length;
+				}
+				
+//				console.log("result = " + result);
+				for (var key in json){
+	/* 				console.log("key = " + key);
+					console.log("result[key] = " + result[key]); */
+					//console.log(Object.keys(json).length);
+					tag += '<div class="repl"><h3 class = "repl-id">' + key  + '</h3><span class = "repl-content">' + json[key]; + '</span></div>';
+				}
+				if(tagCreate){
+					//리플 태그 실제로 넣는 부분
+					document.getElementById("ajax-repl").innerHTML += tag;
+					//리플 개수 태그에 실제로 값 넣는 부분
+					document.getElementById("total-like-view").innerHTML = replyCnt + "개";
+					//한 번 태그 만들었으면 모달창 닫을 때까지는 생성 못하게 막음 - 중복 실행되서 강제로 넣음
+					tagCreate = false;
+				}
+				
+				document.getElementById("modal").style.display = "block";
+			//}else{
+				console.log("GetReply에서 result없음")
+				//서버에서 받아온 result가 공백이면 댓글 개수가 하나도 없는 경우이므로 replyCnt에 0값을 설정 
+				replyCnt = 0;
+				if(tagCreate){
+					document.getElementById("total-like-view").innerHTML = replyCnt + "개";
+					document.getElementById("modal").style.display = "block";
+					tagCreate = false;
+				}
+			//}
 		}
 	}
 		
 	window.onclick = function(event) {
 		if (event.target == modal) {
-		  modal.style.display = "none";
+			tagCreate = true;
+			tagAppend = true;
+			document.getElementById("reply-textArea").value='';
+			console.log("modal close");
+			modal.style.display = "none";
+			$('.repl').remove();
 		}
 	}
 </script>
 <script>
+	//이벤트가 두 번 실행되어  강제로 막기위해 사용 - 왜 두 번 실행 되는지 알 수 없음
+	var tagAppend = false;
+	var tag = "";
+	var insertSuccess = false;
 	//댓글 엔터혹은 게시 버튼 클릭시 댓글 추가
 	//쉬프트 엔터는 줄바꿈
-	var replyContent;
 	$(function() {
-	    $('textarea').on('keydown', function(event) {
-	        if (event.keyCode == 13)
-	            if (!event.shiftKey){
-	                event.preventDefault();
-	                $('#reply-submit').submit();
-	            }
-	    });
-	    
-	    $('#reply-submit').on('submit', function() {
-	    	buttonClick();
-	    });
-	    
-	    function buttonClick() {
-	        //alert("you pressed submit button!");
-	        //수정 시작
-	        replyContent = $('#reply-textArea').val();
-	        console.log("replyContent = " + replyContent);
-			$(document).ready(function(){
-				$.ajax({
-					type:"POST",
-					url:"AppendReply.do",
-					data:{content:replyContent},
-					dataType:"text",
-					success: function(result){
-						console.log(result);
-					},
-					error: function(xhr, status, error){
-						console.log(error);
-					}
-				})
-			})
-	        //
-	    }
+		$('textarea').off().on('keydown', function(event) {
+	        if (event.keyCode == 13 && !event.shiftKey){
+	        	//엔터키 입력시에만 tag추가 허용
+	        	tagAppend=true;
+	        	console.log("Endter : tagAppend = " + tagAppend);
+	        	console.log("전송");
+	        	appendReply();
+	        }else if(event.keyCode == 13 && event.shiftKey){
+	        	console.log("줄바꿈");
+	        }
+		});
 	});
+
+ 	function appendReply(){
+		request.open("Post", "AppendReply.do?imageId="+encodeURIComponent(imageId, true)+"&replyCotent="+$('#reply-textArea').val());
+		request.onreadystatechange = appendProcess;//성공적으로 요청하는 동작이 끝났으면 searchProcess 실행
+		request.send(null);
+	}
+	function appendProcess() {
+		tag = "";
+		insertSuccess = request.responseText;
+		console.log("appendProcess() : insertSuccess = " + insertSuccess);
+		
+		if (request.readyState = 4 && request.status == 200) {
+			if(insertSuccess == "true" && tagAppend == true){
+				tag += '<div class="repl"><h3 class = "repl-id">' + '<%=userid%>'  + '</h3><span class = "repl-content">' + $('#reply-textArea').val() + '</span></div>';
+				document.getElementById("total-like-view").innerHTML += (replyCnt+1) + "개";
+				console.log("tag = " + tag);
+				tagAppend = false; 
+				document.getElementById("reply-textArea").value='';
+				insertSuccess = false;
+			}
+			$('#ajax-repl').append(tag);
+		}
+	}
 </script>
 </head>
 <body>
@@ -512,7 +335,6 @@ li{
 			<img id="${bucket.bucketId }" src="${bucket.bucketImagePath }" style="width: 100%; max-width: 300px" onclick="startModal(this)"/>
 		</c:forEach> 
 	</div>
-	<!-- onclick="this.style.display='none'" -->
 	<div id="modal" class="modal">
 		<div id="container">
 			<div id="image-box">
@@ -533,7 +355,7 @@ li{
 						<a href="#" id="update" class="#"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 					</span>
 					<span id="total-like-view">
-						좋아요 500개
+						
 					</span>
 				</div>
 				<div id="reply-post-up">

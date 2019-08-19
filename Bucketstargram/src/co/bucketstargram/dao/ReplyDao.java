@@ -78,4 +78,27 @@ public class ReplyDao {
 		
 		return replyList;
 	}
+
+	public boolean insert(String userId, String imageId, String replyCotent) {
+		// TODO Auto-generated method stub
+		boolean insertSuccess = false;
+		String sql = "insert into bucket_reply_tb values(?, ?, ?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, imageId);
+			psmt.setString(2, userId);
+			psmt.setString(3, replyCotent);
+			int n = psmt.executeUpdate();
+			if(n != 0) {
+				insertSuccess = true;
+			}
+		}catch (SQLException e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		
+		return insertSuccess;
+	}
 }

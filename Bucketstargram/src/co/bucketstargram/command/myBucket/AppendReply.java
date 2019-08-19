@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import co.bucketstargram.common.Command;
+import co.bucketstargram.dao.ReplyDao;
 
 public class AppendReply implements Command {
 
@@ -16,19 +17,19 @@ public class AppendReply implements Command {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(true);
 		String userId = (String) session.getAttribute("userid");
-		System.out.println("GetReply.java | usersId = " + userId);
+		String imageId = (String)request.getParameter("imageId");
+		String replyCotent = (String)request.getParameter("replyCotent");
+		System.out.println("AppendReply.java | imageId = " + imageId);
+		System.out.println("AppendReply.java | content = " + replyCotent); 
+		System.out.println("AppendReply.java | usersId = " + userId);
+		boolean insertSuccess = false;
 		
 		response.setContentType("text/html;charset=UTF-8");
-		
-		String imageId = request.getParameter("imageId");
-		System.out.println("GetReply.java | userNamed = " + imageId);
-		
-		response.getWriter().write(getJSON(imageId, userId));
+		ReplyDao dao = new ReplyDao();
+		insertSuccess = dao.insert(userId, imageId, replyCotent);
+		if(insertSuccess) {
+			System.out.println("AppendReply.java | String.valueOf(insertSuccess) = " + String.valueOf(insertSuccess));
+			response.getWriter().write(String.valueOf(insertSuccess));
+		}
 	}
-
-	private char[] getJSON(String imageId, String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

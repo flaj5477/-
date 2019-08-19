@@ -22,7 +22,7 @@ public class GetReply implements Command {
 		System.out.println("GetReply.java | usersId = " + userId);
 		response.setContentType("text/html;charset=UTF-8");
 		String imageId = request.getParameter("imageId");
-		System.out.println("GetReply.java | userNamed = " + imageId);
+		System.out.println("GetReply.java | imageId = " + imageId);
 		response.getWriter().write(getJSON(imageId, userId));
 	}
 	
@@ -58,8 +58,12 @@ public class GetReply implements Command {
 					result.append("\""+replyList.get(i).getReMemberId()+"\":\"" + replyList.get(i).getReReplyContents() + "\",");
 				}
 				
-			}else {
-				result.append("\""+replyList.get(i).getReMemberId()+"\":\"" + replyList.get(i).getReReplyContents() + "\"}");
+			}else if((i+1) == replyList.size()){
+				if(replyList.size() == 1) {
+					result.append("{\""+replyList.get(i).getReMemberId()+"\":\"" + replyList.get(i).getReReplyContents() + "\"}");
+				}else {
+					result.append("\""+replyList.get(i).getReMemberId()+"\":\"" + replyList.get(i).getReReplyContents() + "\"}");	
+				}				
 			}
 		}
 		//result.append("]}");
