@@ -10,5 +10,9 @@ public class PrimaryKey {
 		String PrimaryKey = new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.ENGLISH).format(now);
 		
 		return PrimaryKey;
+<<<<<<< HEAD
 	} //d
+=======
+	}
+>>>>>>> branch 'master' of https://github.com/flaj5477/MiniProject.git
 }
