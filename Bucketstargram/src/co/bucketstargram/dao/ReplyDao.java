@@ -79,15 +79,16 @@ public class ReplyDao {
 		return replyList;
 	}
 
-	public boolean insert(String userId, String imageId, String replyCotent) {
+	public boolean insert(String replyId, String bucketId, String memberId, String replyCotents) {
 		// TODO Auto-generated method stub
 		boolean insertSuccess = false;
-		String sql = "insert into bucket_reply_tb values(?, ?, ?)";
+		String sql = "insert into bucket_reply_tb(RE_REPLY_ID, RE_BUCKET_ID, RE_MEMBER_ID, RE_REPLY_CONTENTS) values(?, ?, ?, ?)";
 		try {
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, imageId);
-			psmt.setString(2, userId);
-			psmt.setString(3, replyCotent);
+			psmt.setString(1, replyId);
+			psmt.setString(2, bucketId);
+			psmt.setString(3, memberId);
+			psmt.setString(4, replyCotents);
 			int n = psmt.executeUpdate();
 			if(n != 0) {
 				insertSuccess = true;

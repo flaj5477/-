@@ -67,6 +67,7 @@ public class BucketDao {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return insertSuccess;
 		} finally {
 			close();
 		}
