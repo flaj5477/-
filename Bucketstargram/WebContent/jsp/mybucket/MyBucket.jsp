@@ -205,7 +205,7 @@ li{
 <script>
 	var imageId = "";
 	//중복 이벤트 발생해서 막기위해 추가함
-	var tagCreate = true;
+	var tagCreate = false;
 	//리플 개수 저장 변수
 	var replyCnt = 0;
 	var request = new XMLHttpRequest();
@@ -215,7 +215,6 @@ li{
 		console.log("imageId = " + imageId);
 		/////////////////////
 		document.getElementById("modalImg").src = element.src;
-		
 		request.open("Post", "GetReply.do?imageId="+encodeURIComponent(imageId, true));
 		request.onreadystatechange = searchProcess;//성공적으로 요청하는 동작이 끝났으면 searchProcess 실행
 		request.send(null);
@@ -234,6 +233,7 @@ li{
 			//if(result != ""){
 				console.log("test");
 				if(result != ""){
+					tagCreate = true;
 					var json = JSON.parse(result);
 					//리플 개수 json 데이터 길이로 구함 - Object.keys(객체명).length
 					replyCnt = Object.keys(json).length;
@@ -248,7 +248,7 @@ li{
 				}
 				if(tagCreate){
 					//리플 태그 실제로 넣는 부분
-					document.getElementById("ajax-repl").innerHTML += tag;
+					document.getElementById("ajax-repl").innerHTML = tag;
 					//리플 개수 태그에 실제로 값 넣는 부분
 					document.getElementById("total-like-view").innerHTML = replyCnt + "개";
 					//한 번 태그 만들었으면 모달창 닫을 때까지는 생성 못하게 막음 - 중복 실행되서 강제로 넣음
@@ -314,7 +314,7 @@ li{
 		if (request.readyState = 4 && request.status == 200) {
 			if(insertSuccess == "true" && tagAppend == true){
 				tag += '<div class="repl"><h3 class = "repl-id">' + '<%=userid%>'  + '</h3><span class = "repl-content">' + $('#reply-textArea').val() + '</span></div>';
-				document.getElementById("total-like-view").innerHTML += (replyCnt+1) + "개";
+				document.getElementById("total-like-view").innerHTML = (replyCnt+1) + "개";
 				console.log("tag = " + tag);
 				tagAppend = false; 
 				document.getElementById("reply-textArea").value='';
