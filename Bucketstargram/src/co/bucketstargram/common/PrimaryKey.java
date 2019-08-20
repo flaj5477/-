@@ -10,5 +10,5 @@ public class PrimaryKey {
 		String PrimaryKey = new SimpleDateFormat("yyyyMMddHHmmssSSS", Locale.ENGLISH).format(now);
 		
 		return PrimaryKey;
-	} //d
+	}
 }
