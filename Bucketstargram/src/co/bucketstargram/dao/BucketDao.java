@@ -96,6 +96,7 @@ public class BucketDao {
 				bucket.setBucketLike(rs.getInt("BUCKET_LIKE"));
 				bucket.setBucketImagePath(rs.getString("BUCKET_IMAGE_PATH"));
 				bucket.setBucketTag(rs.getString("BUCKET_TAG"));
+				bucket.setBucketWriteDate(rs.getString("BUCKET_WRITE_DATE"));
 				
 				bucketList.add(bucket);
 			}

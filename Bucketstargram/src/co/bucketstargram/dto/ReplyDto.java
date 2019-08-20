@@ -1,11 +1,19 @@
 package co.bucketstargram.dto;
 
 public class ReplyDto {
+	private String reReplyId;
 	private String reMemberId;
 	private String reBucketId;
 	private String reReplyContents;
+	private String reWriteDate;
 	public ReplyDto() {
 		// TODO Auto-generated constructor stub
+	}
+	public String getReReplyId() {
+		return reReplyId;
+	}
+	public void setReReplyId(String reReplyId) {
+		this.reReplyId = reReplyId;
 	}
 	public ReplyDto(String reMemberId, String reBucketId, String reReplyContents) {
 		super();
@@ -30,5 +38,11 @@ public class ReplyDto {
 	}
 	public void setReReplyContents(String reReplyContents) {
 		this.reReplyContents = reReplyContents;
+	}
+	public String getReWriteDate() {
+		return reWriteDate;
+	}
+	public void setReWriteDate(String reWriteDate) {
+		this.reWriteDate = reWriteDate;
 	}
 }

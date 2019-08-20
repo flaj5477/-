@@ -54,7 +54,7 @@ public class ReplyDao {
 		ArrayList<ReplyDto> replyList = new ArrayList<ReplyDto>();
 		ReplyDto reply = null;
 		//String sql = "SELECT re_member_id, re_reply_contents FROM bucket_reply_tb WHERE re_bucket_id = '" + imageId + "'";
-		String sql = "SELECT re_member_id, re_reply_contents FROM bucket_reply_tb br, bucket_info_tb bi WHERE br.re_bucket_id=bi.bucket_id and br.re_bucket_id = ? and bi.bucket_member_id = ?"; 
+		String sql = "SELECT re_reply_id, re_member_id, re_reply_contents, re_write_date FROM bucket_reply_tb br, bucket_info_tb bi WHERE br.re_bucket_id=bi.bucket_id and br.re_bucket_id = ? and bi.bucket_member_id = ?"; 
 		
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -64,8 +64,10 @@ public class ReplyDao {
 			while(rs.next()) {
 				reply = new ReplyDto();
 				
+				reply.setReReplyId(rs.getString("re_reply_id"));
 				reply.setReMemberId(rs.getString("re_member_id"));
 				reply.setReReplyContents(rs.getString("re_reply_contents"));
+				reply.setReWriteDate(rs.getString("re_write_date"));
 				
 				replyList.add(reply);
 			}

@@ -53,16 +53,20 @@ public class GetReply implements Command {
 		for(int i =0; i<replyList.size();i++) {
 			if((i+1)!=replyList.size()) {
 				if(i==0) {
-					result.append("{\""+replyList.get(i).getReMemberId()+"\":\"" + replyList.get(i).getReReplyContents() + "\",");
+					//댓글이 두개 이상인데 처음 시작일 때
+					result.append("[{\"reMemberId\":\"" + replyList.get(i).getReMemberId() + "\", \"reReplyContent\":\"" + replyList.get(i).getReReplyContents() + "\", \"reWriteDate\":\"" + replyList.get(i).getReWriteDate() +"\"}, ");
 				}else {
-					result.append("\""+replyList.get(i).getReMemberId()+"\":\"" + replyList.get(i).getReReplyContents() + "\",");
+					//댓글이 두개 이상인데 두 번째 이상 시작일 때
+					result.append("{\"reMemberId\":\"" + replyList.get(i).getReMemberId() + "\", \"reReplyContent\":\"" + replyList.get(i).getReReplyContents() + "\", \"reWriteDate\":\"" + replyList.get(i).getReWriteDate() +"\"}, 	");
 				}
 				
 			}else if((i+1) == replyList.size()){
 				if(replyList.size() == 1) {
-					result.append("{\""+replyList.get(i).getReMemberId()+"\":\"" + replyList.get(i).getReReplyContents() + "\"}");
+					//댓글 하나만 달렸을 경우
+					result.append("[{\"reMemberId\":\"" + replyList.get(i).getReMemberId() + "\", \"reReplyContent\":\"" + replyList.get(i).getReReplyContents() + "\", \"reWriteDate\":\"" + replyList.get(i).getReWriteDate() +"\"}]");;
 				}else {
-					result.append("\""+replyList.get(i).getReMemberId()+"\":\"" + replyList.get(i).getReReplyContents() + "\"}");	
+					//댓글이 두개 이상 달렸는데 마지막 녀석일 때
+					result.append("{\"reMemberId\":\"" + replyList.get(i).getReMemberId() + "\", \"reReplyContent\":\"" + replyList.get(i).getReReplyContents() + "\", \"reWriteDate\":\"" + replyList.get(i).getReWriteDate() +"\"}]");;	
 				}				
 			}
 		}

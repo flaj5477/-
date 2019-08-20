@@ -10,6 +10,7 @@ public class BucketDto {
 	private int bucketLike = 0;
 	private String bucketImagePath = null;
 	private String bucketTag = null;
+	private String bucketWriteDate = null;
 	
 	public BucketDto() {
 		// TODO Auto-generated constructor stub
@@ -74,6 +75,12 @@ public class BucketDto {
 	}
 	public void setBucketTag(String bucketTag) {
 		this.bucketTag = bucketTag;
+	}
+	public String getBucketWriteDate() {
+		return bucketWriteDate;
+	}
+	public void setBucketWriteDate(String bucketWriteDate) {
+		this.bucketWriteDate = bucketWriteDate;
 	}
 	
 }
