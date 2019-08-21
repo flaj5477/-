@@ -2,6 +2,7 @@ package co.bucketstargram.dto;
 
 public class BucketDto {
 	private String bucketId = null; // PRIMARY KEY, NOT NULL
+	//버킷의 소유자 ID - bucketOwnerId로 바꾸고 싶다.
 	private String bucketMemberId = null; // NOT NULL
 	private String bucketTitle = null;// NOT NULL
 	private String bucketContents = null;// NOT NULL
@@ -12,6 +13,14 @@ public class BucketDto {
 	private String bucketTag = null;
 	private String bucketWriteDate = null;
 	
+	private String likeYN = null;
+	
+	public String getLikeYN() {
+		return likeYN;
+	}
+	public void setLikeYN(String likeYN) {
+		this.likeYN = likeYN;
+	}
 	public BucketDto() {
 		// TODO Auto-generated constructor stub
 	}
