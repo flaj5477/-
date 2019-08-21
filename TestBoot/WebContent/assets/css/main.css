@@ -2039,9 +2039,9 @@ input[type="submit"].disabled, input[type="submit"]:disabled, input[type="reset"
 	-webkit-flex-direction: row;
 	-ms-flex-direction: row;
 	flex-direction: row;
-	position: absolute;
-	position: absolute; left: 50%; transform: translateX(-50%);
-
+	position: absolute; left: 50%; 
+	transform: translateX(-50%);
+	
 }
 
 .thumbnails a {
@@ -2051,8 +2051,8 @@ input[type="submit"].disabled, input[type="submit"]:disabled, input[type="reset"
 	transition: all 0.2s ease;
 	border-bottom: none;
 	display: block;
-	width: 300px;
-	height: 300px;
+	width: 400px;
+	height: 400px;
 	margin: 0 0 2em 0;
 	text-align: center;
 	border-radius: 4px;
