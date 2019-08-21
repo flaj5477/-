@@ -2039,9 +2039,9 @@ input[type="submit"].disabled, input[type="submit"]:disabled, input[type="reset"
 	-webkit-flex-direction: row;
 	-ms-flex-direction: row;
 	flex-direction: row;
-	position: absolute;
-	position: absolute; left: 50%; transform: translateX(-50%);
-
+	position: absolute; left: 50%; 
+	transform: translateX(-50%);
+	
 }
 
 .thumbnails a {
